@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-grad-from: #f0f6ff;
+  --bg-grad-to: #f5f0ff;
+}
+
+.dark {
+  --bg-grad-from: #070b18;
+  --bg-grad-to: #0b0a1a;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, var(--bg-grad-from), var(--bg-grad-to));
+  color: #0f172a;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.dark body {
+  color: #e5e7eb;
+}
+
+/* App background layers */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.18), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(139, 92, 246, 0.18), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(99, 102, 241, 0.12), transparent 50%);
+}
+
+.dark .app-bg {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.22), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(139, 92, 246, 0.22), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(99, 102, 241, 0.15), transparent 50%);
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/60 dark:bg-slate-900/50 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-lg;
+  }
+  .glass-strong {
+    @apply bg-white/80 dark:bg-slate-900/70 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-xl;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent;
+  }
+  .gradient-btn {
+    @apply bg-gradient-to-r from-accent-blue to-accent-purple text-white;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline-offset: 2px;
+}
