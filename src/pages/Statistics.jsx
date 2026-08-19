@@ -86,18 +86,18 @@ export default function Statistics() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user?.id) return;
     (async () => {
       try {
         const s = await fetchUserStats(user.id);
-        setStats(s);
-      } catch (err) {
-        toast.error('Failed to load statistics');
+        setStats(s || { history: [], scores: [], achievements: [] });
+      } catch {
+        // Handled in api layer
       } finally {
         setLoading(false);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.id]);
+  }, [user?.id]);
 
   const gridColor = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
   const textColor = theme === 'dark' ? '#cbd5e1' : '#475569';

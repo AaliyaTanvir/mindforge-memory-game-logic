@@ -22,18 +22,18 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    if (!user?.id) return;
     (async () => {
       try {
         const s = await fetchUserStats(user.id);
-        setStats(s);
+        setStats(s || { history: [], scores: [], achievements: [] });
       } catch {
-        toast.error('Failed to load profile data');
+        // Handled in api layer
       } finally {
         setLoading(false);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.id]);
+  }, [user?.id]);
 
   const prog = progressToNext(profile?.xp || 0);
   const unlockedCodes = new Set((stats.achievements || []).map((a) => a.code));

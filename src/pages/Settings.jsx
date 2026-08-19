@@ -30,7 +30,7 @@ function Toggle({ checked, onChange, label, description, icon: Icon }) {
 }
 
 export default function Settings() {
-  const { profile, signOut } = useAuth();
+  const { user, profile, signOut } = useAuth();
   const { theme, toggleTheme, setTheme } = useTheme();
   const toast = useToast();
   const navigate = useNavigate();
@@ -44,6 +44,11 @@ export default function Settings() {
     toast.success('Signed out');
     navigate('/login');
   };
+
+  const username = profile?.username || user?.user_metadata?.username || user?.email?.split('@')[0] || 'Player';
+  const email = profile?.email || user?.email || '-';
+  const createdDate = profile?.created_at || user?.created_at;
+  const memberSince = createdDate ? new Date(createdDate).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : 'Today';
 
   return (
     <div className="space-y-6">
@@ -100,9 +105,9 @@ export default function Settings() {
             <User size={18} className="text-accent-purple" /> Account
           </h2>
           <div className="space-y-3 text-sm">
-            <div className="flex justify-between"><span className="text-slate-400">Username</span><span className="font-medium">{profile?.username || '-'}</span></div>
-            <div className="flex justify-between"><span className="text-slate-400">Email</span><span className="font-medium">{profile?.email || '-'}</span></div>
-            <div className="flex justify-between"><span className="text-slate-400">Member since</span><span className="font-medium">{profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : '-'}</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Username</span><span className="font-medium">{username}</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Email</span><span className="font-medium">{email}</span></div>
+            <div className="flex justify-between"><span className="text-slate-400">Member since</span><span className="font-medium">{memberSince}</span></div>
             <div className="flex justify-between"><span className="text-slate-400">Level</span><span className="font-medium">{profile?.level || 1}</span></div>
           </div>
           <div className="mt-4">

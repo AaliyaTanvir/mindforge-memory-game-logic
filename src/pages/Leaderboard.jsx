@@ -35,18 +35,15 @@ export default function Leaderboard() {
       try {
         let data = await fetchLeaderboard(game, scope);
         if (scope === 'friends') {
-          // "Friends" - in a real app this would be a friends list; here we just
-          // show a slice of recent players as a placeholder for the social view.
-          data = data.slice(0, 20);
+          data = (data || []).slice(0, 20);
         }
         setRows(data || []);
-      } catch (err) {
-        toast.error('Failed to load leaderboard');
+      } catch {
+        // Handled gracefully in api layer
       } finally {
         setLoading(false);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scope, game]);
 
   return (

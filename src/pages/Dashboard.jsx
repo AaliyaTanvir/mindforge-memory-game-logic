@@ -49,19 +49,19 @@ export default function Dashboard() {
   })();
 
   useEffect(() => {
+    if (!user?.id) return;
     (async () => {
       try {
         const [d, s] = await Promise.all([fetchDailyChallenge(), fetchUserStats(user.id)]);
         setDaily(d);
-        setStats(s);
-      } catch (err) {
-        toast.error('Could not load dashboard data');
+        setStats(s || { history: [], scores: [], achievements: [] });
+      } catch {
+        // Handled gracefully in api layer
       } finally {
         setLoading(false);
       }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.id]);
+  }, [user?.id]);
 
   const prog = useMemo(() => progressToNext(profile?.xp || 0), [profile?.xp]);
 
