@@ -7,6 +7,7 @@ import {
   localSignUp,
   localSignOut,
   localResetPassword,
+  localUpdateProfile,
 } from '../services/localBackend';
 
 const AuthContext = createContext(null);
@@ -93,33 +94,40 @@ export function AuthProvider({ children }) {
 
     // Initial session check
     (async () => {
-      let activeUser = null;
+      try {
+        let activeUser = null;
 
-      if (isSupabaseConfigured) {
-        try {
-          const { data, error } = await supabase.auth.getSession();
-          if (!error && data?.session?.user) {
-            activeUser = data.session.user;
+        if (isSupabaseConfigured) {
+          try {
+            const { data, error } = await supabase.auth.getSession();
+            if (!error && data?.session?.user) {
+              activeUser = data.session.user;
+            }
+          } catch {
+            // Supabase unreachable
           }
-        } catch {
-          // Supabase unreachable
+        }
+
+        if (!activeUser) {
+          const local = localGetSession();
+          if (local.session?.user) {
+            activeUser = local.session.user;
+          }
+        }
+
+        if (!mounted) return;
+
+        if (activeUser) {
+          setUser(activeUser);
+          await loadProfile(activeUser);
+        }
+      } catch (err) {
+        console.error('Session load error:', err);
+      } finally {
+        if (mounted) {
+          setLoading(false);
         }
       }
-
-      if (!activeUser) {
-        const local = localGetSession();
-        if (local.session?.user) {
-          activeUser = local.session.user;
-        }
-      }
-
-      if (!mounted) return;
-
-      if (activeUser) {
-        setUser(activeUser);
-        await loadProfile(activeUser);
-      }
-      setLoading(false);
     })();
 
     let sub = null;
@@ -127,18 +135,22 @@ export function AuthProvider({ children }) {
       try {
         const res = supabase.auth.onAuthStateChange((_event, session) => {
           (async () => {
-            if (session?.user) {
-              setUser(session.user);
-              await loadProfile(session.user);
-            } else {
-              const local = localGetSession();
-              if (local.session?.user) {
-                setUser(local.session.user);
-                await loadProfile(local.session.user);
+            try {
+              if (session?.user) {
+                setUser(session.user);
+                await loadProfile(session.user);
               } else {
-                setUser(null);
-                setProfile(null);
+                const local = localGetSession();
+                if (local.session?.user) {
+                  setUser(local.session.user);
+                  await loadProfile(local.session.user);
+                } else {
+                  setUser(null);
+                  setProfile(null);
+                }
               }
+            } catch (err) {
+              console.error(err);
             }
           })();
         });
