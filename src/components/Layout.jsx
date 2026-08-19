@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import Logo from './Logo';
 
 const NAV = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -49,12 +50,9 @@ export default function Layout() {
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
-      <Link to="/dashboard" className="flex items-center gap-2 px-4 py-5 mb-2" onClick={() => setMobileOpen(false)}>
-        <div className="w-9 h-9 rounded-xl gradient-btn flex items-center justify-center">
-          <Brain size={20} />
-        </div>
-        <span className="font-display text-xl font-bold gradient-text">MindForge</span>
-      </Link>
+      <div className="px-4 py-5 mb-2" onClick={() => setMobileOpen(false)}>
+        <Logo size="sm" to="/dashboard" />
+      </div>
 
       <nav className="flex-1 px-2 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
