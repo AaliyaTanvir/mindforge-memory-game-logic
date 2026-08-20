@@ -34,15 +34,15 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={api}>
       {children}
-      <div className="fixed top-4 right-4 z-[100] flex flex-col gap-2 max-w-sm w-full pointer-events-none">
+      <div className="fixed top-3 right-3 left-3 sm:left-auto sm:top-4 sm:right-4 z-[100] flex flex-col gap-2 sm:max-w-sm pointer-events-none">
         <AnimatePresence>
           {toasts.map((t) => (
             <motion.div
               key={t.id}
-              initial={{ opacity: 0, x: 40, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 40, scale: 0.95 }}
-              className={`glass-strong rounded-xl p-4 flex items-start gap-3 shadow-xl pointer-events-auto ${
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              className={`glass-strong rounded-xl p-3 sm:p-4 flex items-start gap-2.5 sm:gap-3 shadow-xl pointer-events-auto ${
                 t.type === 'success'
                   ? 'border-emerald-400/40'
                   : t.type === 'error'
@@ -51,15 +51,15 @@ export function ToastProvider({ children }) {
               }`}
             >
               {t.type === 'success' ? (
-                <CheckCircle2 className="text-emerald-500 shrink-0" size={20} />
+                <CheckCircle2 className="text-emerald-500 shrink-0 mt-0.5" size={18} />
               ) : t.type === 'error' ? (
-                <AlertCircle className="text-rose-500 shrink-0" size={20} />
+                <AlertCircle className="text-rose-500 shrink-0 mt-0.5" size={18} />
               ) : (
-                <Info className="text-accent-blue shrink-0" size={20} />
+                <Info className="text-accent-blue shrink-0 mt-0.5" size={18} />
               )}
-              <p className="text-sm flex-1 leading-relaxed">{t.message}</p>
-              <button onClick={() => remove(t.id)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-                <X size={16} />
+              <p className="text-xs sm:text-sm flex-1 leading-relaxed">{t.message}</p>
+              <button onClick={() => remove(t.id)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1" aria-label="Close notification">
+                <X size={15} />
               </button>
             </motion.div>
           ))}

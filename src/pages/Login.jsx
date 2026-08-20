@@ -41,30 +41,30 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4">
+    <div className="min-h-screen relative flex items-center justify-center p-3 sm:p-4 py-8">
       <div className="app-bg" />
       <FloatingOrbs />
 
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
         <button
           onClick={toggleTheme}
-          className="w-9 h-9 rounded-xl glass flex items-center justify-center text-slate-600 dark:text-slate-300"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl glass flex items-center justify-center text-slate-600 dark:text-slate-300"
           aria-label="Toggle theme"
         >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
         </button>
       </div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-strong rounded-3xl p-8 w-full max-w-md relative"
+        className="glass-strong rounded-2xl sm:rounded-3xl p-5 sm:p-8 w-full max-w-md relative mx-auto"
       >
-        <div className="flex justify-center mb-6">
-          <Logo size="lg" />
+        <div className="flex justify-center mb-4 sm:mb-6">
+          <Logo size="md" />
         </div>
-        <h1 className="font-display text-2xl font-bold text-center mb-1">Welcome back</h1>
-        <p className="text-center text-sm text-slate-500 dark:text-slate-400 mb-6">
+        <h1 className="font-display text-xl sm:text-2xl font-bold text-center mb-1">Welcome back</h1>
+        <p className="text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 sm:mb-6">
           Sign in to continue your training
         </p>
 

@@ -33,17 +33,17 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4">
+    <div className="min-h-screen relative flex items-center justify-center p-3 sm:p-4 py-8">
       <div className="app-bg" />
       <FloatingOrbs />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="glass-strong rounded-3xl p-8 w-full max-w-md relative"
+        className="glass-strong rounded-2xl sm:rounded-3xl p-5 sm:p-8 w-full max-w-md relative mx-auto"
       >
-        <div className="flex justify-center mb-6">
-          <Logo size="lg" />
+        <div className="flex justify-center mb-4 sm:mb-6">
+          <Logo size="md" />
         </div>
 
         {sent ? (

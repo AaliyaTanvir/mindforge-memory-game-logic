@@ -15,14 +15,21 @@
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
+  width: 100%;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
+  overflow-x: hidden;
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
   background: linear-gradient(135deg, var(--bg-grad-from), var(--bg-grad-to));
   color: #0f172a;
   transition: background 0.4s ease, color 0.4s ease;

@@ -10,11 +10,11 @@ export default function FloatingOrbs() {
     { icon: Trophy, x: '78%', y: '68%', delay: 1.8, size: 58 },
   ];
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none max-w-full max-h-full">
       {orbs.map((o, i) => (
         <motion.div
           key={i}
-          className="absolute glass rounded-2xl flex items-center justify-center text-accent-purple/40"
+          className="absolute glass rounded-2xl hidden sm:flex items-center justify-center text-accent-purple/40"
           style={{ left: o.x, top: o.y, width: o.size, height: o.size }}
           animate={{ y: [0, -20, 0], rotate: [0, 8, 0] }}
           transition={{ duration: 6, delay: o.delay, repeat: Infinity, ease: 'easeInOut' }}

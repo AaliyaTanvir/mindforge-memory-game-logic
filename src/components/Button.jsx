@@ -12,9 +12,9 @@ const VARIANTS = {
 };
 
 const SIZES = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-5 py-2.5 text-sm',
-  lg: 'px-7 py-3 text-base',
+  sm: 'px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm min-h-[34px]',
+  md: 'px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm min-h-[38px] sm:min-h-[42px]',
+  lg: 'px-5 sm:px-7 py-2.5 sm:py-3 text-sm sm:text-base min-h-[44px] sm:min-h-[48px]',
 };
 
 export default function Button({

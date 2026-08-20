@@ -185,58 +185,58 @@ export default function PatternGame() {
   const multiplier = 1 + combo * 0.2;
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold flex items-center gap-2">
-            <Spline className="text-accent-purple" /> Pattern Recognition
+          <h1 className="font-display text-2xl sm:text-3xl font-bold flex items-center gap-2">
+            <Spline className="text-accent-purple shrink-0" /> Pattern Recognition
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">
             Identify the missing number in the sequence.
           </p>
         </div>
         {!running && !modalOpen && (
-          <Button onClick={start}>
+          <Button onClick={start} className="self-start sm:self-auto">
             <Play size={16} /> Start Game
           </Button>
         )}
       </div>
 
       {/* HUD */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Target className="text-accent-blue" size={20} />
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Target className="text-accent-blue shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Level</p>
-            <p className="font-display font-semibold">{level}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Level</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{level}</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Spline className="text-accent-purple" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Spline className="text-accent-purple shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Score</p>
-            <p className="font-display font-semibold">{score}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Score</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{score}</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Flame className="text-amber-500" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Flame className="text-amber-500 shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Combo</p>
-            <p className="font-display font-semibold">{combo}x</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Combo</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{combo}x</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Timer className="text-accent-blue" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Timer className="text-accent-blue shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Time</p>
-            <p className="font-display font-semibold">{seconds}s</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Time</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{seconds}s</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <span className="text-rose-500 text-lg">{'♥'.repeat(lives)}{'♡'.repeat(3 - lives)}</span>
-          <div>
-            <p className="text-xs text-slate-400">Lives</p>
-            <p className="font-display font-semibold">{lives}/3</p>
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3 col-span-2 sm:col-span-1">
+          <span className="text-rose-500 text-base sm:text-lg shrink-0">{'♥'.repeat(lives)}{'♡'.repeat(3 - lives)}</span>
+          <div className="min-w-0">
+            <p className="text-[10px] sm:text-xs text-slate-400">Lives</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{lives}/3</p>
           </div>
         </div>
       </div>
@@ -246,26 +246,26 @@ export default function PatternGame() {
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="glass-strong rounded-xl px-4 py-2 inline-flex items-center gap-2 text-sm font-semibold"
+          className="glass-strong rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 inline-flex items-center gap-2 text-xs sm:text-sm font-semibold"
         >
-          <Flame className="text-amber-500" size={16} />
+          <Flame className="text-amber-500 shrink-0" size={16} />
           Score multiplier: {multiplier.toFixed(1)}x
         </motion.div>
       )}
 
       {running ? (
-        <GlassCard className="p-6 md:p-10">
-          <p className="text-xs uppercase tracking-wide text-slate-400 mb-4 text-center">
+        <GlassCard className="p-4 sm:p-6 md:p-10">
+          <p className="text-[11px] sm:text-xs uppercase tracking-wide text-slate-400 mb-3 sm:mb-4 text-center">
             {pattern.type} sequence - find the missing value
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8">
             {pattern.display.map((n, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
-                className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-2xl md:text-3xl font-display font-bold ${
+                className={`w-13 h-13 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-xl sm:rounded-2xl flex items-center justify-center text-lg sm:text-2xl md:text-3xl font-display font-bold ${
                   n === null
                     ? 'gradient-btn text-white border-2 border-dashed border-white/60'
                     : 'glass-strong'
@@ -276,19 +276,19 @@ export default function PatternGame() {
             ))}
           </div>
 
-          <p className="text-center text-sm text-slate-400 mb-3">Choose the correct answer</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <p className="text-center text-xs sm:text-sm text-slate-400 mb-2.5 sm:mb-3">Choose the correct answer</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3">
             {pattern.options.map((opt, i) => {
               const isCorrect = opt === pattern.answer;
               const isWrong = selected === opt && feedback === 'wrong';
               return (
                 <motion.button
                   key={i}
-                  whileHover={opt !== null ? { scale: 1.04 } : {}}
+                  whileHover={opt !== null ? { scale: 1.03 } : {}}
                   whileTap={opt !== null ? { scale: 0.96 } : {}}
                   onClick={() => opt !== null && handleAnswer(opt)}
                   disabled={opt === null || feedback !== null}
-                  className={`py-4 rounded-xl font-display font-bold text-xl transition-all ${
+                  className={`py-3 sm:py-4 px-2 sm:px-4 rounded-xl font-display font-bold text-lg sm:text-xl transition-all touch-manipulation ${
                     opt === null
                       ? 'glass opacity-30 cursor-not-allowed line-through'
                       : isCorrect && feedback
@@ -299,28 +299,28 @@ export default function PatternGame() {
                   }`}
                 >
                   {opt !== null ? opt : '—'}
-                  {isCorrect && feedback === 'correct' && <Check className="inline ml-2" size={18} />}
-                  {isWrong && <X className="inline ml-2" size={18} />}
+                  {isCorrect && feedback === 'correct' && <Check className="inline ml-1.5" size={16} />}
+                  {isWrong && <X className="inline ml-1.5" size={16} />}
                 </motion.button>
               );
             })}
           </div>
 
-          <div className="flex justify-center gap-3 mt-6">
-            <Button variant="outline" onClick={useHint}>
-              <Lightbulb size={16} /> Hint ({hintsLeft})
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 sm:mt-6">
+            <Button variant="outline" size="sm" onClick={useHint}>
+              <Lightbulb size={15} /> Hint ({hintsLeft})
             </Button>
-            <Button variant="ghost" onClick={() => finishGame(false)}>
-              <RotateCcw size={16} /> End game
+            <Button variant="ghost" size="sm" onClick={() => finishGame(false)}>
+              <RotateCcw size={15} /> End game
             </Button>
           </div>
         </GlassCard>
       ) : (
         !modalOpen && (
-          <GlassCard className="p-10 text-center">
-            <Spline className="mx-auto text-accent-purple mb-4" size={48} />
-            <h2 className="font-display text-2xl font-bold mb-2">Ready to test your pattern skills?</h2>
-            <p className="text-slate-500 dark:text-slate-400 mb-6">
+          <GlassCard className="p-6 sm:p-10 text-center">
+            <Spline className="mx-auto text-accent-purple mb-3 sm:mb-4" size={42} />
+            <h2 className="font-display text-xl sm:text-2xl font-bold mb-2">Ready to test your pattern skills?</h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 sm:mb-6 max-w-md mx-auto">
               Each correct answer builds your combo. One wrong move costs a life.
             </p>
             <Button size="lg" onClick={start}>

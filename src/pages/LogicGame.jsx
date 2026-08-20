@@ -188,67 +188,67 @@ export default function LogicGame() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold flex items-center gap-2">
-            <Puzzle className="text-emerald-500" /> Logic Challenge
+          <h1 className="font-display text-2xl sm:text-3xl font-bold flex items-center gap-2">
+            <Puzzle className="text-emerald-500 shrink-0" /> Logic Challenge
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">
             Number sequences, shape puzzles, and missing objects.
           </p>
         </div>
         {!running && !modalOpen && (
-          <Button onClick={start}>
+          <Button onClick={start} className="self-start sm:self-auto">
             <Play size={16} /> Start Game
           </Button>
         )}
       </div>
 
       {/* HUD */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Target className="text-emerald-500" size={20} />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Target className="text-emerald-500 shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Level</p>
-            <p className="font-display font-semibold">{level}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Level</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{level}</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Puzzle className="text-accent-purple" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Puzzle className="text-accent-purple shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Score</p>
-            <p className="font-display font-semibold">{score}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Score</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{score}</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Check className="text-emerald-500" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Check className="text-emerald-500 shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Solved</p>
-            <p className="font-display font-semibold">{solvedCount}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Solved</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{solvedCount}</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Timer className="text-accent-blue" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Timer className="text-accent-blue shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Time</p>
-            <p className="font-display font-semibold">{seconds}s</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Time</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{seconds}s</p>
           </div>
         </div>
       </div>
 
       {running ? (
-        <GlassCard className="p-6 md:p-10">
-          <div className="text-center mb-6">
-            <span className="inline-block text-xs font-semibold uppercase tracking-wide gradient-text mb-2">
+        <GlassCard className="p-4 sm:p-6 md:p-10">
+          <div className="text-center mb-4 sm:mb-6">
+            <span className="inline-block text-[11px] sm:text-xs font-semibold uppercase tracking-wide gradient-text mb-1.5 sm:mb-2">
               {puzzle.type} puzzle
             </span>
-            <p className="text-slate-600 dark:text-slate-300 mb-4">{puzzle.prompt}</p>
+            <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 mb-3 sm:mb-4 px-2">{puzzle.prompt}</p>
             <motion.div
               key={level}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-3xl md:text-4xl font-display font-bold tracking-wider my-6"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-display font-bold tracking-wider my-4 sm:my-6 break-words px-2"
             >
               {puzzle.visual}
             </motion.div>
@@ -260,25 +260,25 @@ export default function LogicGame() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="glass rounded-xl p-3 mb-4 text-sm text-amber-600 dark:text-amber-400 flex items-center gap-2"
+                className="glass rounded-xl p-2.5 sm:p-3 mb-3 sm:mb-4 text-xs sm:text-sm text-amber-600 dark:text-amber-400 flex items-center gap-2"
               >
-                <Lightbulb size={16} /> {puzzle.hint}
+                <Lightbulb size={16} className="shrink-0" /> <span>{puzzle.hint}</span>
               </motion.div>
             )}
           </AnimatePresence>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3">
             {puzzle.options.map((opt, i) => {
               const isCorrect = opt === puzzle.answer;
               const isWrong = selected === opt && feedback === 'wrong';
               return (
                 <motion.button
                   key={i}
-                  whileHover={{ scale: 1.04 }}
+                  whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => handleAnswer(opt)}
                   disabled={feedback !== null}
-                  className={`py-4 rounded-xl font-display font-bold text-lg transition-all ${
+                  className={`py-3 sm:py-4 px-2 sm:px-3 rounded-xl font-display font-bold text-base sm:text-lg transition-all touch-manipulation break-words ${
                     isCorrect && feedback
                       ? 'bg-emerald-500 text-white'
                       : isWrong
@@ -286,29 +286,29 @@ export default function LogicGame() {
                         : 'glass-strong hover:border-accent-purple'
                   }`}
                 >
-                  {opt}
-                  {isCorrect && feedback === 'correct' && <Check className="inline ml-2" size={16} />}
-                  {isWrong && <X className="inline ml-2" size={16} />}
+                  <span className="truncate">{opt}</span>
+                  {isCorrect && feedback === 'correct' && <Check className="inline ml-1.5 shrink-0" size={16} />}
+                  {isWrong && <X className="inline ml-1.5 shrink-0" size={16} />}
                 </motion.button>
               );
             })}
           </div>
 
-          <div className="flex justify-center gap-3 mt-6">
-            <Button variant="outline" onClick={useHint}>
-              <Lightbulb size={16} /> Hint ({hintsLeft})
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 sm:mt-6">
+            <Button variant="outline" size="sm" onClick={useHint}>
+              <Lightbulb size={15} /> Hint ({hintsLeft})
             </Button>
-            <Button variant="ghost" onClick={finishGame}>
-              <RotateCcw size={16} /> End game
+            <Button variant="ghost" size="sm" onClick={finishGame}>
+              <RotateCcw size={15} /> End game
             </Button>
           </div>
         </GlassCard>
       ) : (
         !modalOpen && (
-          <GlassCard className="p-10 text-center">
-            <Puzzle className="mx-auto text-emerald-500 mb-4" size={48} />
-            <h2 className="font-display text-2xl font-bold mb-2">Logic puzzles await</h2>
-            <p className="text-slate-500 dark:text-slate-400 mb-6">
+          <GlassCard className="p-6 sm:p-10 text-center">
+            <Puzzle className="mx-auto text-emerald-500 mb-3 sm:mb-4" size={42} />
+            <h2 className="font-display text-xl sm:text-2xl font-bold mb-2">Logic puzzles await</h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-4 sm:mb-6 max-w-md mx-auto">
               Solve 5 puzzles in a row to win. Difficulty rises with every level.
             </p>
             <Button size="lg" onClick={start}>

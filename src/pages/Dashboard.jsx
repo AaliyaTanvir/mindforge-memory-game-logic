@@ -81,14 +81,14 @@ export default function Dashboard() {
   }, [stats.history]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold">
+          <h1 className="font-display text-2xl sm:text-3xl font-bold">
             {isFirstLogin ? 'Welcome' : 'Welcome back'}, <span className="gradient-text">{profile?.username || 'Player'}</span>
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
             {isFirstLogin
               ? 'Ready to start training your brain? Pick a game below.'
               : profile?.streak > 0
@@ -96,29 +96,29 @@ export default function Dashboard() {
                 : 'Play a game today to start a streak.'}
           </p>
         </div>
-        <Button onClick={() => refreshProfile()}>
+        <Button onClick={() => refreshProfile()} className="self-start sm:self-auto w-full sm:w-auto">
           <TrendingUp size={16} /> Refresh stats
         </Button>
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         <Stat icon={Zap} label="Total XP" value={(profile?.xp || 0).toLocaleString()} accent="blue" />
         <Stat icon={Star} label="Current Level" value={profile?.level || 1} accent="purple" subtitle={`${prog.pct.toFixed(0)}% to next`} />
         <Stat icon={Coins} label="Coins" value={(profile?.coins || 0).toLocaleString()} accent="amber" />
         <Stat icon={Flame} label="Day Streak" value={profile?.streak || 0} accent="rose" />
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* XP / Level progress */}
-        <GlassCard className="lg:col-span-2 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display text-lg font-semibold flex items-center gap-2">
+        <GlassCard className="lg:col-span-2 p-4 sm:p-6">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <h2 className="font-display text-base sm:text-lg font-semibold flex items-center gap-2">
               <Zap size={18} className="text-accent-blue" /> Level Progress
             </h2>
-            <span className="text-sm text-slate-400">Level {prog.level}</span>
+            <span className="text-xs sm:text-sm text-slate-400">Level {prog.level}</span>
           </div>
-          <div className="relative h-4 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+          <div className="relative h-3.5 sm:h-4 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${prog.pct}%` }}
@@ -126,11 +126,11 @@ export default function Dashboard() {
               className="h-full gradient-btn rounded-full"
             />
           </div>
-          <div className="flex justify-between text-xs text-slate-400 mt-2">
+          <div className="flex justify-between text-[11px] sm:text-xs text-slate-400 mt-1.5 sm:mt-2">
             <span>{prog.floor} XP</span>
             <span>{prog.ceil} XP</span>
           </div>
-          <div className="grid grid-cols-3 gap-3 mt-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mt-4 sm:mt-6">
             <Stat icon={Target} label="Games" value={totalGames} accent="blue" />
             <Stat icon={Trophy} label="Wins" value={wins} accent="emerald" />
             <Stat icon={TrendingUp} label="Accuracy" value={`${accuracy}%`} accent="purple" />
@@ -138,19 +138,19 @@ export default function Dashboard() {
         </GlassCard>
 
         {/* Daily Challenge */}
-        <GlassCard className="p-6">
-          <h2 className="font-display text-lg font-semibold flex items-center gap-2 mb-4">
+        <GlassCard className="p-4 sm:p-6">
+          <h2 className="font-display text-base sm:text-lg font-semibold flex items-center gap-2 mb-3 sm:mb-4">
             <Calendar size={18} className="text-accent-purple" /> Daily Challenge
           </h2>
           {loading ? (
             <div className="h-32 animate-pulse rounded-xl bg-slate-200/50 dark:bg-slate-700/40" />
           ) : daily ? (
             <div>
-              <span className="inline-block text-xs font-semibold uppercase tracking-wide gradient-text mb-2">
+              <span className="inline-block text-[11px] sm:text-xs font-semibold uppercase tracking-wide gradient-text mb-1.5 sm:mb-2">
                 {daily.game} - {daily.difficulty}
               </span>
-              <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">{daily.description}</p>
-              <div className="flex items-center justify-between text-sm mb-4">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-3 sm:mb-4">{daily.description}</p>
+              <div className="flex items-center justify-between text-xs sm:text-sm mb-3 sm:mb-4">
                 <span className="text-slate-400">Target</span>
                 <span className="font-semibold">{daily.target_score} XP</span>
               </div>
@@ -161,15 +161,15 @@ export default function Dashboard() {
               </Link>
             </div>
           ) : (
-            <p className="text-sm text-slate-400">No challenge today. Check back soon!</p>
+            <p className="text-xs sm:text-sm text-slate-400">No challenge today. Check back soon!</p>
           )}
         </GlassCard>
       </div>
 
       {/* Continue playing */}
       <div>
-        <h2 className="font-display text-xl font-semibold mb-4">Continue playing</h2>
-        <div className="grid md:grid-cols-3 gap-6">
+        <h2 className="font-display text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Continue playing</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           {GAMES.map((g, i) => (
             <motion.div
               key={g.to}
@@ -177,14 +177,16 @@ export default function Dashboard() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
             >
-              <Link to={g.to}>
-                <GlassCard hover className="p-6 h-full">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${g.color} flex items-center justify-center mb-4`}>
-                    <g.icon className="text-white" size={22} />
+              <Link to={g.to} className="block h-full">
+                <GlassCard hover className="p-5 sm:p-6 h-full flex flex-col justify-between">
+                  <div>
+                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${g.color} flex items-center justify-center mb-3 sm:mb-4`}>
+                      <g.icon className="text-white" size={20} />
+                    </div>
+                    <h3 className="font-display text-base sm:text-lg font-semibold">{g.label}</h3>
+                    <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-3">{g.desc}</p>
                   </div>
-                  <h3 className="font-display text-lg font-semibold">{g.label}</h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">{g.desc}</p>
-                  <span className="inline-flex items-center gap-1 text-sm text-accent-purple font-medium">
+                  <span className="inline-flex items-center gap-1 text-xs sm:text-sm text-accent-purple font-medium">
                     Play now <ArrowRight size={14} />
                   </span>
                 </GlassCard>
@@ -194,26 +196,26 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Recent achievements */}
-        <GlassCard className="p-6">
-          <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
+        <GlassCard className="p-4 sm:p-6">
+          <h2 className="font-display text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
             <Trophy size={18} className="text-amber-500" /> Recent Achievements
           </h2>
           {recentAchievements.length === 0 ? (
-            <p className="text-sm text-slate-400">No achievements yet. Play a game to earn your first!</p>
+            <p className="text-xs sm:text-sm text-slate-400">No achievements yet. Play a game to earn your first!</p>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2.5 sm:space-y-3">
               {recentAchievements.map((a) => {
                 const Icon = LucideIcons[a.icon] || Trophy;
                 return (
-                  <div key={a.id} className="flex items-center gap-3 glass rounded-xl p-3">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-400 to-accent-purple flex items-center justify-center text-white">
+                  <div key={a.id} className="flex items-center gap-3 glass rounded-xl p-2.5 sm:p-3">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-amber-400 to-accent-purple flex items-center justify-center text-white shrink-0">
                       <Icon size={18} />
                     </div>
-                    <div>
-                      <p className="font-medium text-sm">{a.title}</p>
-                      <p className="text-xs text-slate-400">{a.description}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-xs sm:text-sm truncate">{a.title}</p>
+                      <p className="text-[11px] sm:text-xs text-slate-400 truncate">{a.description}</p>
                     </div>
                   </div>
                 );
@@ -223,26 +225,26 @@ export default function Dashboard() {
         </GlassCard>
 
         {/* Mini stats summary */}
-        <GlassCard className="p-6">
-          <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
+        <GlassCard className="p-4 sm:p-6">
+          <h2 className="font-display text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
             <TrendingUp size={18} className="text-accent-blue" /> Performance
           </h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="glass rounded-xl p-4">
-              <p className="text-xs text-slate-400 uppercase tracking-wide">Avg time</p>
-              <p className="font-display text-2xl font-semibold">{avgTime}s</p>
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
+            <div className="glass rounded-xl p-3 sm:p-4">
+              <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide">Avg time</p>
+              <p className="font-display text-lg sm:text-2xl font-semibold">{avgTime}s</p>
             </div>
-            <div className="glass rounded-xl p-4">
-              <p className="text-xs text-slate-400 uppercase tracking-wide">Best games</p>
-              <p className="font-display text-2xl font-semibold">{stats.scores.length}</p>
+            <div className="glass rounded-xl p-3 sm:p-4">
+              <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide">Best games</p>
+              <p className="font-display text-lg sm:text-2xl font-semibold">{stats.scores.length}</p>
             </div>
-            <div className="glass rounded-xl p-4">
-              <p className="text-xs text-slate-400 uppercase tracking-wide">Achievements</p>
-              <p className="font-display text-2xl font-semibold">{stats.achievements.length}</p>
+            <div className="glass rounded-xl p-3 sm:p-4">
+              <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide">Achievements</p>
+              <p className="font-display text-lg sm:text-2xl font-semibold">{stats.achievements.length}</p>
             </div>
-            <div className="glass rounded-xl p-4">
-              <p className="text-xs text-slate-400 uppercase tracking-wide">Last played</p>
-              <p className="font-display text-2xl font-semibold">
+            <div className="glass rounded-xl p-3 sm:p-4">
+              <p className="text-[10px] sm:text-xs text-slate-400 uppercase tracking-wide">Last played</p>
+              <p className="font-display text-base sm:text-2xl font-semibold truncate">
                 {profile?.last_played_date
                   ? new Date(profile.last_played_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
                   : '-'}

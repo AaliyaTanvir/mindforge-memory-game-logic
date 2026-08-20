@@ -17,20 +17,21 @@ export default function Modal({ open, onClose, title, children, footer }) {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.92, y: 20, opacity: 0 }}
             transition={{ type: 'spring', damping: 22, stiffness: 280 }}
-            className="glass-strong rounded-2xl w-full max-w-md p-6 relative"
+            className="glass-strong rounded-2xl sm:rounded-3xl w-full max-w-md p-4 sm:p-6 relative max-h-[90vh] flex flex-col my-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-display text-xl font-semibold">{title}</h3>
+            <div className="flex items-center justify-between mb-3 sm:mb-4 shrink-0">
+              <h3 className="font-display text-lg sm:text-xl font-semibold">{title}</h3>
               <button
                 onClick={onClose}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                aria-label="Close modal"
               >
                 <X size={20} />
               </button>
             </div>
-            <div className="mb-4">{children}</div>
-            {footer && <div className="flex justify-end gap-3">{footer}</div>}
+            <div className="mb-4 overflow-y-auto flex-1">{children}</div>
+            {footer && <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3 shrink-0 pt-2">{footer}</div>}
           </motion.div>
         </motion.div>
       )}

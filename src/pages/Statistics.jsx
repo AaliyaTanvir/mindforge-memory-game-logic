@@ -160,16 +160,16 @@ export default function Statistics() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="font-display text-3xl font-bold flex items-center gap-2">
-          <BarChart3 className="text-accent-blue" /> Statistics
+        <h1 className="font-display text-2xl sm:text-3xl font-bold flex items-center gap-2">
+          <BarChart3 className="text-accent-blue shrink-0" /> Statistics
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-1">Track your performance and progress over time.</p>
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">Track your performance and progress over time.</p>
       </div>
 
       {/* Summary stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         <Stat icon={Gamepad2} label="Games Played" value={gamesPlayed} accent="blue" />
         <Stat icon={Trophy} label="Wins" value={wins} accent="emerald" />
         <Stat icon={Target} label="Accuracy" value={`${accuracy}%`} accent="purple" />
@@ -177,11 +177,11 @@ export default function Statistics() {
       </div>
 
       {/* Daily progress */}
-      <GlassCard className="p-6">
-        <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
-          <TrendingUp size={18} className="text-accent-blue" /> Daily Progress (last 7 days)
+      <GlassCard className="p-4 sm:p-6">
+        <h2 className="font-display text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+          <TrendingUp size={18} className="text-accent-blue shrink-0" /> Daily Progress (last 7 days)
         </h2>
-        <div className="h-64">
+        <div className="h-52 sm:h-64">
           <Line
             data={{
               labels: dailyLabels,
@@ -207,21 +207,21 @@ export default function Statistics() {
             options={{
               responsive: true,
               maintainAspectRatio: false,
-              plugins: { legend: { labels: { color: textColor } } },
+              plugins: { legend: { labels: { color: textColor, boxWidth: 12, font: { size: 11 } } } },
               scales: {
-                x: { grid: { color: gridColor }, ticks: { color: textColor } },
-                y: { grid: { color: gridColor }, ticks: { color: textColor }, beginAtZero: true },
+                x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } } },
+                y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } }, beginAtZero: true },
               },
             }}
           />
         </div>
       </GlassCard>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Weekly progress */}
-        <GlassCard className="p-6">
-          <h2 className="font-display text-lg font-semibold mb-4">Weekly Progress</h2>
-          <div className="h-56">
+        <GlassCard className="p-4 sm:p-6">
+          <h2 className="font-display text-base sm:text-lg font-semibold mb-3 sm:mb-4">Weekly Progress</h2>
+          <div className="h-48 sm:h-56">
             <Bar
               data={{
                 labels: dailyLabels,
@@ -237,10 +237,10 @@ export default function Statistics() {
               options={{
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: textColor } } },
+                plugins: { legend: { labels: { color: textColor, boxWidth: 12, font: { size: 11 } } } },
                 scales: {
-                  x: { grid: { color: gridColor }, ticks: { color: textColor } },
-                  y: { grid: { color: gridColor }, ticks: { color: textColor }, beginAtZero: true },
+                  x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } } },
+                  y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } }, beginAtZero: true },
                 },
               }}
             />
@@ -248,9 +248,9 @@ export default function Statistics() {
         </GlassCard>
 
         {/* Game distribution */}
-        <GlassCard className="p-6">
-          <h2 className="font-display text-lg font-semibold mb-4">Game Distribution</h2>
-          <div className="h-56 flex items-center justify-center">
+        <GlassCard className="p-4 sm:p-6">
+          <h2 className="font-display text-base sm:text-lg font-semibold mb-3 sm:mb-4">Game Distribution</h2>
+          <div className="h-48 sm:h-56 flex items-center justify-center">
             <Doughnut
               data={{
                 labels: Object.keys(gameDistribution).map((g) => GAME_LABELS[g]),
@@ -265,7 +265,7 @@ export default function Statistics() {
               options={{
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: textColor } } },
+                plugins: { legend: { labels: { color: textColor, boxWidth: 12, font: { size: 11 } } } },
               }}
             />
           </div>
@@ -273,11 +273,11 @@ export default function Statistics() {
       </div>
 
       {/* Monthly progress */}
-      <GlassCard className="p-6">
-        <h2 className="font-display text-lg font-semibold mb-4 flex items-center gap-2">
-          <BarChart3 size={18} className="text-accent-purple" /> Monthly Progress (6 months)
+      <GlassCard className="p-4 sm:p-6">
+        <h2 className="font-display text-base sm:text-lg font-semibold mb-3 sm:mb-4 flex items-center gap-2">
+          <BarChart3 size={18} className="text-accent-purple shrink-0" /> Monthly Progress (6 months)
         </h2>
-        <div className="h-64">
+        <div className="h-52 sm:h-64">
           <Bar
             data={{
               labels: monthlyLabels,
@@ -293,10 +293,10 @@ export default function Statistics() {
             options={{
               responsive: true,
               maintainAspectRatio: false,
-              plugins: { legend: { labels: { color: textColor } } },
+              plugins: { legend: { labels: { color: textColor, boxWidth: 12, font: { size: 11 } } } },
               scales: {
-                x: { grid: { color: gridColor }, ticks: { color: textColor } },
-                y: { grid: { color: gridColor }, ticks: { color: textColor }, beginAtZero: true },
+                x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } } },
+                y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 11 } }, beginAtZero: true },
               },
             }}
           />
@@ -304,30 +304,30 @@ export default function Statistics() {
       </GlassCard>
 
       {/* Best scores table */}
-      <GlassCard className="p-6">
-        <h2 className="font-display text-lg font-semibold mb-4">Best Scores</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+      <GlassCard className="p-4 sm:p-6">
+        <h2 className="font-display text-base sm:text-lg font-semibold mb-3 sm:mb-4">Best Scores</h2>
+        <div className="overflow-x-auto -mx-2 sm:mx-0 px-2 sm:px-0">
+          <table className="w-full text-xs sm:text-sm min-w-[460px]">
             <thead>
               <tr className="text-left text-slate-400 border-b border-slate-200/40 dark:border-white/10">
-                <th className="py-2">Game</th>
-                <th className="py-2">Difficulty</th>
-                <th className="py-2">Best Score</th>
-                <th className="py-2">Time</th>
-                <th className="py-2">Moves</th>
+                <th className="py-2.5 px-2">Game</th>
+                <th className="py-2.5 px-2">Difficulty</th>
+                <th className="py-2.5 px-2">Best Score</th>
+                <th className="py-2.5 px-2">Time</th>
+                <th className="py-2.5 px-2">Moves</th>
               </tr>
             </thead>
             <tbody>
               {stats.scores.length === 0 ? (
-                <tr><td colSpan="5" className="py-4 text-center text-slate-400">No scores yet.</td></tr>
+                <tr><td colSpan="5" className="py-6 text-center text-slate-400">No scores yet.</td></tr>
               ) : (
                 stats.scores.map((s) => (
                   <tr key={s.id} className="border-b border-slate-200/30 dark:border-white/5">
-                    <td className="py-2 font-medium">{GAME_LABELS[s.game] || s.game}</td>
-                    <td className="py-2">{s.difficulty}</td>
-                    <td className="py-2 font-display font-semibold">{s.best_score}</td>
-                    <td className="py-2">{s.best_time_seconds ? `${s.best_time_seconds}s` : '-'}</td>
-                    <td className="py-2">{s.moves ?? '-'}</td>
+                    <td className="py-2.5 px-2 font-medium">{GAME_LABELS[s.game] || s.game}</td>
+                    <td className="py-2.5 px-2 text-slate-500">{s.difficulty}</td>
+                    <td className="py-2.5 px-2 font-display font-semibold">{s.best_score}</td>
+                    <td className="py-2.5 px-2 text-slate-500">{s.best_time_seconds ? `${s.best_time_seconds}s` : '-'}</td>
+                    <td className="py-2.5 px-2 text-slate-500">{s.moves ?? '-'}</td>
                   </tr>
                 ))
               )}

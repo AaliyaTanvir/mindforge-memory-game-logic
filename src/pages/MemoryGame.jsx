@@ -196,27 +196,32 @@ export default function MemoryGame() {
     return config.cols === 4
       ? 'grid-cols-4'
       : config.cols === 6
-        ? 'grid-cols-6'
-        : 'grid-cols-4 md:grid-cols-8';
+        ? 'grid-cols-4 sm:grid-cols-6'
+        : 'grid-cols-4 sm:grid-cols-8';
   }, [config.cols]);
 
-  const cardSize = config.cols === 8 ? 'text-2xl md:text-3xl' : 'text-3xl md:text-4xl';
+  const cardSize =
+    config.cols === 8
+      ? 'text-lg sm:text-xl md:text-2xl lg:text-3xl'
+      : config.cols === 6
+        ? 'text-xl sm:text-2xl md:text-3xl'
+        : 'text-2xl sm:text-3xl md:text-4xl';
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="font-display text-3xl font-bold flex items-center gap-2">
-            <Grid3x3 className="text-accent-blue" /> Memory Game
+          <h1 className="font-display text-2xl sm:text-3xl font-bold flex items-center gap-2">
+            <Grid3x3 className="text-accent-blue shrink-0" /> Memory Game
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">Flip the cards and match every pair.</p>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">Flip the cards and match every pair.</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 w-full sm:w-auto">
           {Object.entries(DIFFICULTIES).map(([key, cfg]) => (
             <button
               key={key}
               onClick={() => changeDifficulty(key)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+              className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
                 difficulty === key
                   ? 'gradient-btn text-white'
                   : 'glass text-slate-600 dark:text-slate-300'
@@ -229,79 +234,80 @@ export default function MemoryGame() {
       </div>
 
       {/* HUD */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Timer className="text-accent-blue" size={20} />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Timer className="text-accent-blue shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Time</p>
-            <p className="font-display font-semibold">{seconds}s</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Time</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{seconds}s</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Footprints className="text-accent-purple" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Footprints className="text-accent-purple shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Moves</p>
-            <p className="font-display font-semibold">{moves}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Moves</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{moves}</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Trophy className="text-amber-500" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Trophy className="text-amber-500 shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Pairs</p>
-            <p className="font-display font-semibold">{matchedCount}/{totalPairs}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Pairs</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{matchedCount}/{totalPairs}</p>
           </div>
         </div>
-        <div className="glass rounded-xl p-3 flex items-center gap-3">
-          <Lightbulb className="text-amber-400" size={20} />
+        <div className="glass rounded-xl p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3">
+          <Lightbulb className="text-amber-400 shrink-0" size={18} />
           <div>
-            <p className="text-xs text-slate-400">Hints</p>
-            <p className="font-display font-semibold">{hintsLeft}</p>
+            <p className="text-[10px] sm:text-xs text-slate-400">Hints</p>
+            <p className="font-display font-semibold text-sm sm:text-base">{hintsLeft}</p>
           </div>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="flex flex-wrap gap-3">
-        <Button variant="secondary" onClick={() => reset(difficulty)}>
-          <RotateCcw size={16} /> Restart
+      <div className="flex flex-wrap gap-2 sm:gap-3">
+        <Button variant="secondary" size="sm" onClick={() => reset(difficulty)}>
+          <RotateCcw size={15} /> Restart
         </Button>
-        <Button variant="outline" onClick={useHint}>
-          <Lightbulb size={16} /> Hint
+        <Button variant="outline" size="sm" onClick={useHint}>
+          <Lightbulb size={15} /> Hint
         </Button>
         <Button
           variant="ghost"
+          size="sm"
           onClick={() => setPaused((p) => !p)}
           disabled={!running || won}
         >
-          {paused ? <><Play size={16} /> Resume</> : <><Pause size={16} /> Pause</>}
+          {paused ? <><Play size={15} /> Resume</> : <><Pause size={15} /> Pause</>}
         </Button>
       </div>
 
       {/* Board */}
-      <GlassCard className="p-4 md:p-6">
+      <GlassCard className="p-3 sm:p-4 md:p-6 relative">
         {paused && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm rounded-2xl">
-            <div className="text-center">
-              <Pause className="mx-auto text-white mb-2" size={40} />
-              <p className="text-white font-display text-xl">Paused</p>
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm rounded-2xl">
+            <div className="text-center p-4">
+              <Pause className="mx-auto text-white mb-2" size={36} />
+              <p className="text-white font-display text-lg sm:text-xl">Paused</p>
             </div>
           </div>
         )}
-        <div className={`grid ${colsClass} gap-2 md:gap-3 relative`}>
+        <div className={`grid ${colsClass} gap-1.5 sm:gap-2.5 md:gap-3 relative`}>
           {deck.map((card, idx) => {
             const isHint = hintPair && hintPair.includes(idx);
             return (
               <motion.button
                 key={card.id}
                 onClick={() => handleFlip(idx)}
-                whileHover={{ scale: card.flipped || card.matched ? 1 : 1.05 }}
+                whileHover={{ scale: card.flipped || card.matched ? 1 : 1.04 }}
                 whileTap={{ scale: 0.95 }}
-                className={`aspect-square rounded-xl flex items-center justify-center ${cardSize} font-bold transition-all ${
+                className={`aspect-square rounded-lg sm:rounded-xl flex items-center justify-center ${cardSize} font-bold transition-all select-none touch-manipulation ${
                   card.matched
                     ? 'bg-gradient-to-br from-emerald-400/30 to-emerald-600/20 border-2 border-emerald-400/50'
                     : card.flipped
                       ? 'glass-strong border-2 border-accent-purple/50'
-                      : 'gradient-btn text-white shadow-lg shadow-accent-purple/20'
+                      : 'gradient-btn text-white shadow-md sm:shadow-lg shadow-accent-purple/20'
                 } ${isHint ? 'ring-4 ring-amber-400' : ''}`}
                 style={{ perspective: 1000 }}
               >
